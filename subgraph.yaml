@@ -1,16 +1,16 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: Contract
+    name: MobilityCampaigns
     network: ropsten
     source:
-      address: "0x72E14B32f4F4818F3629Ee4AA88AF7b2CB85665b"
-      abi: Contract
+      address: "0x52e6244371999f9B07F296C712E8a878912e07fE"
+      abi: MobilityCampaigns
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.2
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
         - CampaignCompleted
@@ -18,15 +18,15 @@ dataSources:
         - UserRegistered
         - UserRewardsWithdrawn
       abis:
-        - name: Contract
-          file: ./abis/Contract.json
+        - name: MobilityCampaigns
+          file: ./abis/MobilityCampaigns.json
       eventHandlers:
-        - event: CampaignCompleted(indexed address,uint256,uint256)
+        - event: CampaignCompleted(indexed address,uint256,uint256,uint256)
           handler: handleCampaignCompleted
-        - event: CampaignCreated(indexed address,indexed string,string,string,uint256,uint256)
+        - event: CampaignCreated(indexed address,indexed string,string,string,uint256,uint256,uint256)
           handler: handleCampaignCreated
         - event: UserRegistered(indexed address,uint256,uint256)
           handler: handleUserRegistered
-        - event: UserRewardsWithdrawn(indexed address,uint256,uint256)
+        - event: UserRewardsWithdrawn(indexed address,uint256,uint256,uint256)
           handler: handleUserRewardsWithdrawn
       file: ./src/mapping.ts

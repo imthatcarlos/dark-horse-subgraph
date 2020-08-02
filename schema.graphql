@@ -1,6 +1,51 @@
-type ExampleEntity @entity {
+type _Schema_
+  @fulltext(
+    name: "campaignSearch",
+    language: en
+    algorithm: rank,
+    include: [
+      {
+        entity: "MobilityCampaign",
+        fields: [
+          { name: "organization" },
+          { name: "title" },
+          { name: "category" }
+        ]
+      }
+    ]
+  )
+
+type MobilityCampaign @entity {
   id: ID!
-  count: BigInt!
-  creator: Bytes! # address
-  totalCampaignReceivers: BigInt! # uint256
+  idx: BigInt!
+  creator: MobilityCampaignOwner! # address
+  organization: String
+  category: String!
+  title: String!
+  createdAt: BigInt!
+  isActive: Boolean!
+  closedAtCampaignReceivers: BigInt!
+}
+
+type MobilityCampaignOwner @entity {
+  id: ID!
+  owner: Bytes!
+  campaigns: [MobilityCampaign!]! @derivedFrom(field: "creator")
+  totalContributedWei: BigInt!
+}
+
+type RewardOwner @entity {
+  id: ID!
+  owner: Bytes!
+  enabledAt: BigInt!
+  enabledAtCampaignIdx: BigInt!
+  totalRewardsWei: BigInt
+  rewards: [Reward!]! @derivedFrom(field: "owner")
+}
+
+type Reward @entity {
+  id: ID!
+  owner: RewardOwner!
+  rewardsWei: BigInt!
+  withdrewAt: BigInt!
 }
