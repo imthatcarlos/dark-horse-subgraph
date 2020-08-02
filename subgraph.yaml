@@ -1,0 +1,32 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Contract
+    network: ropsten
+    source:
+      address: "0x72E14B32f4F4818F3629Ee4AA88AF7b2CB85665b"
+      abi: Contract
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.2
+      language: wasm/assemblyscript
+      entities:
+        - CampaignCompleted
+        - CampaignCreated
+        - UserRegistered
+        - UserRewardsWithdrawn
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+      eventHandlers:
+        - event: CampaignCompleted(indexed address,uint256,uint256)
+          handler: handleCampaignCompleted
+        - event: CampaignCreated(indexed address,indexed string,string,string,uint256,uint256)
+          handler: handleCampaignCreated
+        - event: UserRegistered(indexed address,uint256,uint256)
+          handler: handleUserRegistered
+        - event: UserRewardsWithdrawn(indexed address,uint256,uint256)
+          handler: handleUserRewardsWithdrawn
+      file: ./src/mapping.ts
