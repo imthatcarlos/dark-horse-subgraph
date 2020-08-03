@@ -113,13 +113,30 @@ export class MobilityCampaign extends Entity {
     this.set("isActive", Value.fromBoolean(value));
   }
 
-  get closedAtCampaignReceivers(): BigInt {
-    let value = this.get("closedAtCampaignReceivers");
+  get budgetWei(): BigInt {
+    let value = this.get("budgetWei");
     return value.toBigInt();
   }
 
-  set closedAtCampaignReceivers(value: BigInt) {
-    this.set("closedAtCampaignReceivers", Value.fromBigInt(value));
+  set budgetWei(value: BigInt) {
+    this.set("budgetWei", Value.fromBigInt(value));
+  }
+
+  get closedAtCampaignReceivers(): BigInt | null {
+    let value = this.get("closedAtCampaignReceivers");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set closedAtCampaignReceivers(value: BigInt | null) {
+    if (value === null) {
+      this.unset("closedAtCampaignReceivers");
+    } else {
+      this.set("closedAtCampaignReceivers", Value.fromBigInt(value as BigInt));
+    }
   }
 }
 

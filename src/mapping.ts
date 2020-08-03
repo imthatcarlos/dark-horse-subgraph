@@ -24,10 +24,14 @@ export function handleCampaignCreated(event: CampaignCreated): void {
 
   entity.idx = event.params.idx;
   entity.creator = event.params.creator.toHex();
+
+  // @TODO: not possible to decode indexed string value.
   entity.organization = event.params.organization.toString();
+
   entity.category = event.params.category;
   entity.title = event.params.title;
   entity.createdAt = event.params.createdAt;
+  entity.budgetWei = event.params.budgetWei;
   entity.isActive = true;
 
   entity.save();

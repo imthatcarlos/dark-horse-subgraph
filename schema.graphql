@@ -24,7 +24,8 @@ type MobilityCampaign @entity {
   title: String!
   createdAt: BigInt!
   isActive: Boolean!
-  closedAtCampaignReceivers: BigInt!
+  budgetWei: BigInt!
+  closedAtCampaignReceivers: BigInt
 }
 
 type MobilityCampaignOwner @entity {
